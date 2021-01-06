@@ -7,14 +7,12 @@ Prerequisite
   + Windows: 
     - 'zip.exe' downoald url: http://stahlworks.com/dev/index.php?tool=zipunzip
     - Need to set path of `zip.exe` in your system environment    
-  + CentOS/RHEL
+  + Linux
  ```bash
  $ yum install zip
- ```
-  + Ubuntu/Debian
- ```bash
+ or
  $ apt-get install zip
- ```
+ ``` 
 
 ### FossID
 - Create FossID Username
