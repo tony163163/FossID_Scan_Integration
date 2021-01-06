@@ -60,8 +60,8 @@ public class main {
 			
 			ArrayList<String> param = new ArrayList<String>(Arrays.asList(args));
 						
-			if(args.length < 10 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
-					!param.contains("--scanname")){
+			if(args.length < 12 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
+					!param.contains("--scanname") || !param.contains("--prsccode")){
 				System.out.println();
 				System.out.println();
 				System.err.println("Please, check your parameters");
@@ -72,9 +72,7 @@ public class main {
 			} 
 			
 			System.out.println("Start FossID Scan Integration");			
-			printInfo.startFOSSID();	
-			
-			String date = new DateTime().toString(DateTimeFormat.forPattern("yyyyMMdd"));
+			printInfo.startFOSSID();
 			
 			String protocol = "http";
 			String address = "";
@@ -82,7 +80,7 @@ public class main {
 			String apikey = "";
 			String projectName = "";
 			String scanName = "";
-			String prscId = date;
+			String prscCode = "";
 			String targetpath = "";
 			String dependencyScanRun = "0";
 			String gitRepoUrl = "";
@@ -90,10 +88,10 @@ public class main {
 			String ignoreValue = "";
 			String ignoreType = "";
 			String interval = "10";
-			String filepath = "";
-			String filename = "";
-			String excludepath = "";
-			String decompresstime = "30";
+			String filePath = "";
+			String fileName = "";
+			String excludePath = "";
+			String decompressTime = "30";
 			
 			String limit = "";
 			String sensitivity = "";
@@ -134,15 +132,15 @@ public class main {
 					scanName = args[i+1];
 				}
 				
-				if(args[i].equals("--prscid")) {
-					prscId = args[i+1]; 
+				if(args[i].equals("--prsccode")) {
+					prscCode = args[i+1]; 
 				}
 				
 				if(args[i].equals("--targetpath")) {
 					targetpath = args[i+1];
 				}
 				
-				if(args[i].equals("--dependencyScanRun")) {
+				if(args[i].equals("--dependencyscanrun")) {
 					dependencyScanRun = args[i+1];
 				}
 				
@@ -217,38 +215,38 @@ public class main {
 				}			
 				
 				if(args[i].equals("--filepath")) {
-					filepath = args[i+1];
+					filePath = args[i+1];
 				}
 				
 				if(args[i].equals("--filename")) {
-					filename = args[i+1];
+					fileName = args[i+1];
 				}
 				
 				if(args[i].equals("--excludepath")) {
-					excludepath = args[i+1];
+					excludePath = args[i+1];
 				}
 				
 				if(args[i].equals("--decompresstime")) {
-					decompresstime = args[i+1];
+					decompressTime = args[i+1];
 				}
 				
 				i++;
 			}
 			
 			loginInfo.setLogininfo(protocol, address, userName, apikey);		
-			projectInfo.setInfo(projectName, scanName, prscId, gitRepoUrl, gitBranch);			
+			projectInfo.setInfo(projectName, scanName, prscCode, gitRepoUrl, gitBranch);			
 			printInfo.printinfo();
 			
 			if(!gitRepoUrl.equals("")) {
 				downloadSourcefromGit.downloadfromGit(interval);
 			}
 			
-			if(!filepath.equals("")){
-				validator.setFileValues(filepath, filename);			
+			if(!filePath.equals("")){
+				validator.setFileValues(filePath, fileName);			
 				deletefile.validationFile();
-				compressFiles.compressfiles(excludepath);						
+				compressFiles.compressfiles(excludePath);						
 				//uploadfile.uploadfiles(decompressFile);			
-				uploadfile.uploadingFile(decompresstime);
+				uploadfile.uploadingFile(decompressTime);
 			}			
 			
 			updateScaninfo.updateScaninfo(targetpath);
@@ -261,7 +259,7 @@ public class main {
 			
 			System.out.println();
 			
-			if(!filepath.equals("")){
+			if(!filePath.equals("")){
 				deletefile.deletecomparessedfile();
 			}
 			

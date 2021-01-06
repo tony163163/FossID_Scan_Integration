@@ -11,7 +11,7 @@ public class printInfo {
 		System.out.println();
 		System.out.println("e.g:");
 		System.out.println("$ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username unsername --apikey a22d2s2s23 "
-				+ "--projectname testProject --scanname testScan --prscid 0000 --targetpath /path/to/scan --dependencyScanRun 0 "
+				+ "--projectname testProject --scanname testScan --prsccode 0000 --targetpath /path/to/scan --dependencyScanRun 0 "
 				+ "--gitrepourl https://github.com/twbs/bootstrap.git --gitbranch master --sourcepath /fossid/uploads/files/scans "
 				+ "--ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip --decompresstime 30");
 		System.out.println();
@@ -28,14 +28,13 @@ public class printInfo {
 		System.out.println("Project Information");
 		System.out.println("--projectname: Project Name");
 		System.out.println("--scanname: Scan Name");
-		System.out.println("--prscid: (Optional) Project / Scan ID");
-		System.out.println("          (default: today date)");
+		System.out.println("--prsccode: Project / Scan Code");		
 		System.out.println();
 		System.out.println("Option (Optional)");
 		System.out.println("--targetpath: Full path including source code to be analyzed in FossID server");
 		System.out.println("  + Need to change 'webapp_scan_path_enable=1' to use this option in /fossid/etc/fossid.conf file");
 		System.out.println("  (NOTE: Please, do not use `--targetpath` with `Git Config` and `Upload Target File`)");		
-		System.out.println("--dependencyScanRun: Set 0 or 1 to trigger dependency scan after source code scan");
+		System.out.println("--dependencyscanrun: Set 0 or 1 to trigger dependency scan after source code scan");
 		System.out.println("                     (default: 0)");
 		System.out.println("--ignorevalue: Set ignore values. This value is separated by commas and the order of this values is matched with the order of ignoretype value");
 		System.out.println("--ignoretype: Set ignore types. This value is separated by commas and the order of this values is matched with the order of ignorevalue value");		

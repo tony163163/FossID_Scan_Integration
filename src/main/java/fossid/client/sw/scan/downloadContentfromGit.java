@@ -51,6 +51,8 @@ public class downloadContentfromGit {
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
 			String result = br.readLine();
+			
+			System.out.println(result.toString());
 	        
 			System.out.println("Start download source code from Git");
 			System.out.println("Git URL: " + pvalues.getGitUrl() + "  /  Branch: " + pvalues.getGitBranch());			
@@ -102,6 +104,8 @@ public class downloadContentfromGit {
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
 				String result = br.readLine();
+				
+				//System.out.println(result.toString());
 				
 				JSONParser jsonParser = new JSONParser();
 			    JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());
