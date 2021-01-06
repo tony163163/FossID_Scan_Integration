@@ -10,6 +10,10 @@ import fossid.client.sw.main.printInfo;
 import fossid.client.sw.setdata.setLoginInfo;
 import fossid.client.sw.setdata.setProjectInfo;
 import fossid.client.sw.setdata.updateScanInfo;
+import fossid.client.sw.uploading.compressFiles;
+import fossid.client.sw.uploading.deleteCompressedFile;
+import fossid.client.sw.uploading.osValidator;
+import fossid.client.sw.uploading.uploadFiles;
 import fossid.client.sw.values.projectValues;
 import fossid.client.sw.scan.runScan;
 import fossid.client.sw.scan.runDependencyScan;
@@ -27,6 +31,10 @@ public class main {
 	static downloadContentfromGit downloadSourcefromGit = new downloadContentfromGit();
 	static setIgnoreRules ignoreRules = new setIgnoreRules();
 	static projectValues pvalues = projectValues.getInstance();
+	static uploadFiles uploadfile = new uploadFiles();	
+	static compressFiles compressFiles = new compressFiles();
+	static deleteCompressedFile deletefile = new deleteCompressedFile();
+	static osValidator validator = new osValidator();
 	
 	public static void main(String[] args) {				
 		
@@ -52,8 +60,8 @@ public class main {
 			
 			ArrayList<String> param = new ArrayList<String>(Arrays.asList(args));
 						
-			if(args.length < 12 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
-					!param.contains("--scanname") || !param.contains("--targetpath")){
+			if(args.length < 10 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
+					!param.contains("--scanname")){
 				System.out.println();
 				System.out.println();
 				System.err.println("Please, check your parameters");
@@ -78,11 +86,28 @@ public class main {
 			String targetpath = "";
 			String dependencyScanRun = "0";
 			String gitRepoUrl = "";
-			String gitBranch = "";
-			String sourcePath = "/fossid/uploads/files/scans";
+			String gitBranch = "";			
 			String ignoreValue = "";
 			String ignoreType = "";
 			String interval = "10";
+			String filepath = "";
+			String filename = "";
+			String excludepath = "";
+			String decompresstime = "30";
+			
+			String limit = "";
+			String sensitivity = "";
+			String replaceid = "";
+			String reuseid = "";
+			String idreusetype = "";
+			String specificcode = "";
+			String autoiddetectdeclare = "";
+			String autoiddetectcopyright = "";
+			String autoiddetectcomponent = "";
+			String scanfailedonly = "";
+			String deltaonly = "";
+			String fullfileonly = "";
+					
 			
 			for(int i = 0; i < args.length; i++) {
 				if(args[i].equals("--protocol")) {
@@ -129,11 +154,7 @@ public class main {
 				if(args[i].equals("--gitbranch")) {
 					gitBranch = args[i+1]; 
 					pvalues.setGitBranch(gitBranch);
-				}
-				
-				if(args[i].equals("--sourcepath")) {
-					sourcePath = args[i+1]; 
-				}
+				}			
 				
 				if(args[i].equals("--ignorevalue")) {
 					ignoreValue = args[i+1];
@@ -147,6 +168,70 @@ public class main {
 					interval = args[i+1];
 				}
 				
+				if(args[i].equals("--limit")) {
+					limit = args[i+1];
+				}
+				
+				if(args[i].equals("--sensitivity")) {
+					sensitivity = args[i+1];
+				}
+				
+				if(args[i].equals("--replaceid")) {
+					replaceid = args[i+1];
+				}
+				
+				if(args[i].equals("--reuseid")) {
+					reuseid = args[i+1];
+				}
+				
+				if(args[i].equals("--idreusetype")) {
+					idreusetype = args[i+1];
+				}
+				
+				if(args[i].equals("--specificcode")) {
+					specificcode = args[i+1];
+				}
+				
+				if(args[i].equals("--autoiddetectdeclare")) {
+					autoiddetectdeclare = args[i+1];
+				}
+				
+				if(args[i].equals("--autoiddetectcopyright")) {
+					autoiddetectcopyright = args[i+1];
+				}
+				
+				if(args[i].equals("--autoiddetectcomponent")) {
+					autoiddetectcomponent = args[i+1];
+				}
+				
+				if(args[i].equals("--scanfailedonly")) {
+					scanfailedonly = args[i+1];
+				}
+				
+				if(args[i].equals("--deltaonly")) {
+					deltaonly = args[i+1];
+				}
+				
+				if(args[i].equals("--fullfileonly")) {
+					fullfileonly = args[i+1];
+				}			
+				
+				if(args[i].equals("--filepath")) {
+					filepath = args[i+1];
+				}
+				
+				if(args[i].equals("--filename")) {
+					filename = args[i+1];
+				}
+				
+				if(args[i].equals("--excludepath")) {
+					excludepath = args[i+1];
+				}
+				
+				if(args[i].equals("--decompresstime")) {
+					decompresstime = args[i+1];
+				}
+				
 				i++;
 			}
 			
@@ -158,14 +243,28 @@ public class main {
 				downloadSourcefromGit.downloadfromGit(interval);
 			}
 			
-			updateScaninfo.updateScaninfo(targetpath, sourcePath);
+			if(!filepath.equals("")){
+				validator.setFileValues(filepath, filename);			
+				deletefile.validationFile();
+				compressFiles.compressfiles(excludepath);						
+				//uploadfile.uploadfiles(decompressFile);			
+				uploadfile.uploadingFile(decompresstime);
+			}			
+			
+			updateScaninfo.updateScaninfo(targetpath);
 			ignoreRules.setignoreRules(ignoreValue, ignoreType);			
-		    runscan.runscan(interval);		    
+		    runscan.runscan(interval, limit, sensitivity, replaceid, reuseid, idreusetype, specificcode, autoiddetectdeclare, 
+		    		autoiddetectcopyright,  autoiddetectcomponent, scanfailedonly, deltaonly, fullfileonly);		    
 		    if(dependencyScanRun.equals("1")){		    	
 		    	runDependencyScan.runDependencyScan(interval);
 		    }						
 			
 			System.out.println();
+			
+			if(!filepath.equals("")){
+				deletefile.deletecomparessedfile();
+			}
+			
 			if(pvalues.getSuccess() == 1) {
 				System.out.println("All Scan process has been finished!!");
 			} else if(pvalues.getSuccess() == 0) {
@@ -173,6 +272,7 @@ public class main {
 				System.out.println("Please, check 1) your configurations 2) FossID configurations 3) scan processes");
 				System.exit(1);
 			}
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

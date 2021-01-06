@@ -23,91 +23,121 @@ public class runScan {
 	loginValues lvalues = loginValues.getInstance();
 	projectValues pvalues = projectValues.getInstance(); 
 
-	public void runscan(String interval) {
-		
-		Properties props = new Properties();
-		
-		try {			
-			InputStream is = getClass().getResourceAsStream("/config.properties");
-			props.load(is);
-		} catch (IOException e1) {			
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			pvalues.setSuccess(0);
-			//dvalue.deletecomparessedfile();
-			System.exit(1);
-		}
-		
+	public void runscan(String interval, String limit, String sensitivity, String replaceid, String reuseid, String idreusetype, String specificcode, 
+			String autoiddetectdeclare, String autoiddetectcopyright, String autoiddetectcomponent, String  scanfailedonly, String deltaonly, String fullfileonly) {
 
 		JSONObject dataObject = new JSONObject();
         dataObject.put("username", lvalues.getUsername());
         dataObject.put("key", lvalues.getApikey());
         dataObject.put("scan_code", pvalues.getScanCode());
         
-        if(!props.getProperty("limit").equals("")){        
-        	dataObject.put("limit", props.getProperty("limit"));
-        	pvalues.setScanOption("limit: " + props.getProperty("limit"));
+        if(!limit.equals("")){        	 		
+        	dataObject.put("limit", Integer.parseInt(limit));
+            pvalues.setScanOption("limit: " + limit);
+        	
         }
         
-        if(!props.getProperty("sensitivity").equals("")){        
-        	dataObject.put("sensitivity", props.getProperty("sensitivity"));
-        	pvalues.setScanOption("sensitivity: " + props.getProperty("sensitivity"));
+        if(!sensitivity.equals("")){
+        	dataObject.put("sensitivity", Integer.parseInt(sensitivity));
+            pvalues.setScanOption("sensitivity: " + sensitivity);        	
         }
         
-        if(!props.getProperty("replace_existing_identifications").equals("")){
-        	dataObject.put("replace_existing_identifications", props.getProperty("replace_existing_identifications"));
-        	pvalues.setScanOption("replace_existing_identifications: " + props.getProperty("replace_existing_identifications"));
+        if(!replaceid.equals("")){
+        	if(replaceid.equals("1")) {        		
+        		dataObject.put("sensitivity", replaceid);
+            	pvalues.setScanOption("sensitivity: " + "true");
+        	} else if(replaceid.equals("0")) {        		
+        		dataObject.put("replace_existing_identifications", replaceid);
+            	pvalues.setScanOption("replace_existing_identifications: " + "false");
+        	}
         }
         
-        if(!props.getProperty("reuse_identification").equals("")){
-        	dataObject.put("reuse_identification", props.getProperty("reuse_identification"));
-        	pvalues.setScanOption("reuse_identification: " + props.getProperty("reuse_identification"));
+        if(!reuseid.equals("")){
+        	if(reuseid.equals("1")) {        		
+        		dataObject.put("reuse_identification", reuseid);
+            	pvalues.setScanOption("reuse_identification: " + "true");
+        	} else if(reuseid.equals("0")) {        		
+        		dataObject.put("reuse_identification", reuseid);
+            	pvalues.setScanOption("reuse_identification: " + "false");
+        	}
+        }        
+        
+        if(!idreusetype.equals("")){        	
+        	dataObject.put("identification_reuse_type", idreusetype);
+        	pvalues.setScanOption("identification_reuse_type: " + idreusetype);
         }
         
-        if(!props.getProperty("identification_reuse_type").equals("")){
-        	dataObject.put("identification_reuse_type", props.getProperty("identification_reuse_type"));
-        	pvalues.setScanOption("identification_reuse_type: " + props.getProperty("identification_reuse_type"));
+        if(!specificcode.equals("")){
+        	dataObject.put("specific_code", specificcode);
+        	pvalues.setScanOption("specific_code: " + specificcode);
         }
         
-        if(!props.getProperty("specific_code").equals("")){
-        	dataObject.put("specific_code", props.getProperty("specific_code"));
-        	pvalues.setScanOption("specific_code: " + props.getProperty("specific_code"));
+        if(!autoiddetectdeclare.equals("")){
+        	if(autoiddetectdeclare.equals("1")) {        		
+        		dataObject.put("auto_identification_detect_declaration", autoiddetectdeclare);
+            	pvalues.setScanOption("auto_identification_detect_declaration: " + "true");
+        	} else if(autoiddetectcopyright.equals("0")) {        		
+        		dataObject.put("auto_identification_detect_declaration", autoiddetectdeclare);
+            	pvalues.setScanOption("auto_identification_detect_declaration: " + "false");
+        	}
         }
         
-        if(!props.getProperty("auto_identification_detect_declaration").equals("")){
-        	dataObject.put("auto_identification_detect_declaration", props.getProperty("auto_identification_detect_declaration"));
-        	pvalues.setScanOption("auto_identification_detect_declaration: " + props.getProperty("auto_identification_detect_declaration"));
+        if(!autoiddetectcopyright.equals("")){
+        	if(autoiddetectcopyright.equals("1")) {        		
+        		dataObject.put("auto_identification_detect_copyright", autoiddetectcopyright);
+            	pvalues.setScanOption("auto_identification_detect_copyright: " + "true");
+        	} else if(autoiddetectcopyright.equals("0")) {        		
+        		dataObject.put("auto_identification_detect_copyright", autoiddetectcopyright);
+            	pvalues.setScanOption("auto_identification_detect_copyright: " + "false");
+        	}        	
         }
         
-        if(!props.getProperty("auto_identification_detect_copyright").equals("")){
-        	dataObject.put("auto_identification_detect_copyright", props.getProperty("auto_identification_detect_copyright"));
-        	pvalues.setScanOption("auto_identification_detect_copyright: " + props.getProperty("auto_identification_detect_copyright"));
+        if(!autoiddetectcomponent.equals("")){
+        	if(autoiddetectcomponent.equals("1")) {        		
+        		dataObject.put("auto_identification_detect_component", autoiddetectcomponent);
+            	pvalues.setScanOption("auto_identification_detect_component: " + "true");
+        	} else if(autoiddetectcomponent.equals("0")) {        		
+        		dataObject.put("auto_identification_detect_component", autoiddetectcomponent);
+            	pvalues.setScanOption("auto_identification_detect_component: " + "false");
+        	}
         }
         
-        if(!props.getProperty("auto_identification_detect_component").equals("")){
-        	dataObject.put("auto_identification_detect_component", props.getProperty("auto_identification_detect_component"));
-        	pvalues.setScanOption("auto_identification_detect_component: " + props.getProperty("auto_identification_detect_component"));
+        if(!scanfailedonly.equals("")){
+        	if(scanfailedonly.equals("1")) {        		
+        		dataObject.put("scan_failed_only", scanfailedonly);
+            	pvalues.setScanOption("scan_failed_only: " + "true");
+        	} else if(scanfailedonly.equals("0")) {        		
+        		dataObject.put("scan_failed_only", scanfailedonly);
+            	pvalues.setScanOption("scan_failed_only: " + "false");
+        	}
         }
         
-        if(!props.getProperty("scan_failed_only").equals("")){
-        	dataObject.put("scan_failed_only", props.getProperty("scan_failed_only"));
-        	pvalues.setScanOption("scan_failed_only: " + props.getProperty("scan_failed_only"));
+        if(!deltaonly.equals("")){
+        	if(deltaonly.equals("1")) {        		
+        		dataObject.put("delta_only", deltaonly);
+            	pvalues.setScanOption("delta_only: " + "true");
+        	} else if(deltaonly.equals("0")) {        		
+        		dataObject.put("delta_only", deltaonly);
+            	pvalues.setScanOption("delta_only: " + "false");
+        	}
         }
         
-        if(!props.getProperty("delta_only").equals("")){
-        	dataObject.put("delta_only", props.getProperty("delta_only"));
-        	pvalues.setScanOption("delta_only: " + props.getProperty("delta_only"));
-        }
-        
-        if(!props.getProperty("full_file_only").equals("")){
-        	dataObject.put("full_file_only", props.getProperty("full_file_only"));
-        	pvalues.setScanOption("full_file_only: " + props.getProperty("full_file_only"));
+        if(!fullfileonly.equals("")){
+        	if(fullfileonly.equals("1")) {        		
+        		dataObject.put("full_file_only", fullfileonly);
+                pvalues.setScanOption("full_file_only: " + "true");
+        	} else if(fullfileonly.equals("0")) {        		
+        		dataObject.put("full_file_only", fullfileonly);
+                pvalues.setScanOption("full_file_only: " + "false");
+        	}
         }
                         
 		JSONObject rootObject = new JSONObject();
         rootObject.put("group", "scans");
         rootObject.put("action", "run");
 		rootObject.put("data", dataObject);
+		
+		//System.out.println(rootObject.toString());
 		
 		if(pvalues.getScanOption().size() > 0) {
 			System.out.println();
@@ -168,7 +198,6 @@ public class runScan {
 		String finished = "0";
 		//1000 = 1 second
 		int intervals = Integer.parseInt(interval) * 1000;
-
 	   
 		
 		try {

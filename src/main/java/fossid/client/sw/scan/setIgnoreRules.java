@@ -26,20 +26,7 @@ public class setIgnoreRules {
 	projectValues pvalues = projectValues.getInstance();
 	//deleteCompressedFile dvalue = new deleteCompressedFile(); 
 
-	public void setignoreRules(String valueTemp, String typeTemp) {
-	//public void setignoreRules() {
-		Properties props = new Properties();
-		
-		try {			
-			InputStream is = getClass().getResourceAsStream("/config.properties");
-			props.load(is);
-		} catch (IOException e1) {			
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			pvalues.setSuccess(0);
-			//dvalue.deletecomparessedfile();
-			System.exit(1);
-		}
+	public void setignoreRules(String valueTemp, String typeTemp) {	
 		
 		List<String> values = Arrays.asList(valueTemp.split(","));
 		List<String> types = Arrays.asList(typeTemp.split(","));

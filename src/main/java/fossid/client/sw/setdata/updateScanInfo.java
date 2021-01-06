@@ -19,7 +19,7 @@ public class updateScanInfo {
 	loginValues lvalues = loginValues.getInstance();
 	projectValues pvalues = projectValues.getInstance(); 
 	
-	public void updateScaninfo(String targetpath, String sourcePath) {
+	public void updateScaninfo(String targetpath) {
 		
 		String end = "";
 		String check = "f";
@@ -31,30 +31,18 @@ public class updateScanInfo {
 			}
 		}
 		
-		if(!sourcePath.equals("/fossid/uploads/files/scans")) {
-			end = sourcePath.substring(sourcePath.length() - 1, sourcePath.length());
-			if(!end.equals("/")) {
-				sourcePath = sourcePath + "/" + pvalues.getScanId();
-				check = "t";
-			}
-			sourcePath = sourcePath + "/" + pvalues.getScanId();
-			check = "t";
-		}		
-		
 		// to map scan to project
 		JSONObject dataObject = new JSONObject();
         dataObject.put("username", lvalues.getUsername());
         dataObject.put("key", lvalues.getApikey());        
         dataObject.put("project_code", pvalues.getProjectCode());
         dataObject.put("scan_code", pvalues.getScanCode());
-        dataObject.put("scan_name", pvalues.getScanName());       	
+        dataObject.put("scan_name", pvalues.getScanName());   	
        	if(!targetpath.equals("")) {
        		dataObject.put("target_path", targetpath);
-		} else if(!check.equals("t")) {
-			dataObject.put("target_path", sourcePath);
-			
-			System.out.println("SOURCEPATH: " + sourcePath);
-		}
+       		
+       		System.out.println("TARGETPATH: " + targetpath);
+		} 
         
 		JSONObject rootObject = new JSONObject();
         rootObject.put("group", "scans");
@@ -80,8 +68,8 @@ public class updateScanInfo {
 			
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
-			String result = br.readLine();
-			
+			String result = br.readLine();			
+						
 			JSONParser jsonParser = new JSONParser();
 	        JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());            
 	        String getStatus = jsonObj1.get("status").toString();

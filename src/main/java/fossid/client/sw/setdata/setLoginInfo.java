@@ -30,11 +30,11 @@ public class setLoginInfo {
 			temp = temp.substring(temp .length() - 1, temp.length());
 			
 			if(temp.equals("/")) {
-				lvalues.setServerApiUri("http://" + address + "webapp/api.php");
-				lvalues.setServerUploadUri("http://" + address + "webapp/api_upload_endpoint.php");
+				lvalues.setServerApiUri("http://" + address + "api.php");
+				lvalues.setServerUploadUri("http://" + address + "api_upload_endpoint.php");
 			} else {
-				lvalues.setServerApiUri("http://" + address + "/webapp/api.php");
-				lvalues.setServerUploadUri("http://" + address + "/webapp/api_upload_endpoint.php");
+				lvalues.setServerApiUri("http://" + address + "/api.php");
+				lvalues.setServerUploadUri("http://" + address + "/api_upload_endpoint.php");
 			}				
 		} else if(protocol.equals("https")) {
 			lvalues.setServerUri("https://" + address);
@@ -44,11 +44,11 @@ public class setLoginInfo {
 			temp = temp.substring(temp .length() - 1, temp.length());
 			
 			if(temp.equals("/")) {
-				lvalues.setServerApiUri("http://" + address + "webapp/api.php");
-				lvalues.setServerUploadUri("http://" + address + "webapp/api_upload_endpoint.php");
+				lvalues.setServerApiUri("https://" + address + "api.php");
+				lvalues.setServerUploadUri("https://" + address + "api_upload_endpoint.php");
 			} else {
-				lvalues.setServerApiUri("http://" + address + "/webapp/api.php");
-				lvalues.setServerUploadUri("http://" + address + "/webapp/api_upload_endpoint.php");
+				lvalues.setServerApiUri("https://" + address + "/api.php");
+				lvalues.setServerUploadUri("https://" + address + "/api_upload_endpoint.php");
 			}
 		}
 		
