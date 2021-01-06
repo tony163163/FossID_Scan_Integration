@@ -11,7 +11,7 @@ Prerequisite
 webapp_scan_path_enable=1
 ```
 - Edit configurations 
-+ Add MaxRequestSize and TimeForRequest in /etc/hiawatha/hiawatha.conf if Hiawatha runs as webserver
+  + Add MaxRequestSize and TimeForRequest in /etc/hiawatha/hiawatha.conf if Hiawatha runs as webserver
 ```
 Binding {
         Port = 80
@@ -20,7 +20,7 @@ Binding {
         TimeForRequest = 300,300
 }
 ```
-+ Add timeout and client_max_body_size in /etc/nginx/nginx.conf if Nginx runs as webserver
+  + Add timeout and client_max_body_size in /etc/nginx/nginx.conf if Nginx runs as webserver
 
 ```
 http {
@@ -32,7 +32,7 @@ http {
     fastcgi_read_timeout 1200s;
 }
 ```
-+ Edit below parameter in /etc/php.ini
+  + Edit below parameter in /etc/php.ini
 
 ```
 max_execution_time = 300
@@ -55,31 +55,30 @@ e.g)
 $ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username unsername --apikey a22d2s2s23 --projectname testProject --scanname testScan --prscid 0000 --targetpath /path/to/scan --dependencyScanRun 0 --gitrepourl https://github.com/twbs/bootstrap.git --gitbranch master --sourcepath /fossid/uploads/files/scans --ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip --decompresstime 30 --excludepath /exclude/path1/*,/exclude/path2/*,*.txt
 ```
 
-Arguments
-=========
-
-Server Information
---protocol: (Optional) FossID web interface protocol
-            (default: http)
---address: FossID address
---username: username
---apikey: apikey
-
-Project Information
---projectname: Project Name
---scanname: Scan Name
---prscid: (Optional) Project / Scan ID
-          (default: today date) 
-
-Option (Optional)
---targetpath: Full path including source code to be analyzed in FossID server
-  + Need to change 'webapp_scan_path_enable=1' to use this option in /fossid/etc/fossid.conf file
-  (NOTE: Please, do not use `--targetpath` with `Git Config` and `Upload Target File`)
---dependencyScanRun: Set 0 or 1 to trigger dependency scan after source code scan
-			         (default: 0)
---ignorevalue: Set ignore values. This value is separated by commas and the order of this values is matched with the order of ignoretypes value
---ignoretype: Set ignore types. This value is separated by commas and the order of this values is matched with the order of ignorevalue value
---interval: Set interval time to check status running source code and dependency scan
+### Arguments
+```
+Server Information  
+--protocol: (Optional) FossID web interface protocol  
+            (default: http)  
+--address: FossID address  
+--username: username  
+--apikey: apikey  
+  
+Project Information  
+--projectname: Project Name  
+--scanname: Scan Name  
+--prscid: (Optional) Project / Scan ID  
+          (default: today date)  
+  
+Option (Optional)  
+--targetpath: Full path including source code to be analyzed in FossID server  
+  + Need to change 'webapp_scan_path_enable=1' to use this option in /fossid/etc/fossid.conf file  
+  (NOTE: Please, do not use `--targetpath` with `Git Config` and `Upload Target File`)  
+--dependencyScanRun: Set 0 or 1 to trigger dependency scan after source code scan  
+			         (default: 0)  
+--ignorevalue: Set ignore values. This value is separated by commas and the order of this values is matched with the order of ignoretypes value  
+--ignoretype: Set ignore types. This value is separated by commas and the order of this values is matched with the order of ignorevalue value  
+--interval: Set interval time to check status running source code and dependency scan  
 			(default: 10 seconds)
 
 Git Config (Optional)
@@ -117,4 +116,5 @@ Scan Option (Optional)
 --deltaonly: Only newly added files or modified files will be scanned
              (0,1 default)	
 (not available)  --fullfileonly:	Get only full file matches as result
-                (0,1 default)		
+                (0,1 default)
+```
