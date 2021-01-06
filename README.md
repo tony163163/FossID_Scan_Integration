@@ -1,6 +1,20 @@
 
 Prerequisite
 ------------------------------------------------
+### zip install
+- This tool needs a 'zip' utility in your system.
+  + Note: Install or use v3.0 or higher to create over 2GB zip file  
+  + Windows: 
+    - 'zip.exe' downoald url: http://stahlworks.com/dev/index.php?tool=zipunzip
+    - Need to set path of `zip.exe` in your system environment    
+  + CentOS/RHEL
+ ```bash
+ $ yum install zip
+ ```
+  + Ubuntu/Debian
+ ```bash
+ $ apt-get install zip
+ ```
 
 ### FossID
 - Create FossID Username
