@@ -60,10 +60,12 @@ public class updateScanInfo {
 			
 			HttpResponse httpClientResponse = httpClient.execute(httpPost);			
 			
-			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {
+			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {								
 				pvalues.setSuccess(0);
-				System.out.println("Failed : HTTP Error code : " + httpClientResponse.getStatusLine().getStatusCode());
-				System.exit(1);
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
+				System.exit(1);	
 			}
 			
 			BufferedReader br = new BufferedReader(

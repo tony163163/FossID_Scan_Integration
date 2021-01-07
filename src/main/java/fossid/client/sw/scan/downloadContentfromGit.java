@@ -43,9 +43,12 @@ public class downloadContentfromGit {
 					
 			HttpResponse httpClientResponse = httpClient.execute(httpPost);
 				
-			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {			
-				throw new RuntimeException(
-						"Failed : HTTP error code : " + httpClientResponse.getStatusLine().getStatusCode());
+			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {								
+				pvalues.setSuccess(0);
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
+				System.exit(1);	
 			}
 			
 			BufferedReader br = new BufferedReader(
@@ -94,11 +97,13 @@ public class downloadContentfromGit {
 				
 				HttpResponse httpClientResponse = httpClient.execute(httpPost);			
 				
-				
-				if (httpClientResponse.getStatusLine().getStatusCode() != 200) {
-					throw new RuntimeException(
-							"Failed : HTTP error code : " + httpClientResponse.getStatusLine().getStatusCode());
-				}	
+				if (httpClientResponse.getStatusLine().getStatusCode() != 200) {								
+					pvalues.setSuccess(0);
+					System.out.println();
+					System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+					System.out.println();
+					System.exit(1);	
+				}
 									
 				
 				BufferedReader br = new BufferedReader(

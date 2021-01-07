@@ -84,10 +84,12 @@ public class setLoginInfo {
 			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {
 				System.out.println("FAILED: Please, check the FOSSID protocol or url values");				
 				pvalues.setSuccess(0);
-				System.out.println("Failed : HTTP Error code : " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
 				System.exit(1);		
-			} 
-			
+			}
+		
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
 			String result = br.readLine();

@@ -56,7 +56,9 @@ public class setProjectInfo {
 			
 			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {								
 				pvalues.setSuccess(0);
-				System.out.println("Failed : HTTP Error code : " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
 				System.exit(1);	
 			}	
 								
@@ -92,8 +94,8 @@ public class setProjectInfo {
             }
             
 		} catch (Exception e) {
-			pvalues.setSuccess(0);
-			//System.exit(1);
+			pvalues.setSuccess(0);			
+			System.exit(1);
 			e.printStackTrace();
 		}		
 	}
@@ -123,8 +125,10 @@ public class setProjectInfo {
 			HttpResponse httpClientResponse = httpClient.execute(httpPost);			
 			
 			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {
-				pvalues.setSuccess(0);
-				System.out.println("Failed : HTTP Error code : " + httpClientResponse.getStatusLine().getStatusCode());
+				pvalues.setSuccess(0);				
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
 				System.exit(1);	
 			}					
 			
@@ -135,6 +139,9 @@ public class setProjectInfo {
 			
 		} catch (Exception e) {
 			pvalues.setSuccess(0);
+			System.out.println();
+			System.out.println("ERROR: Please, check creating project");
+			System.out.println();
 			System.exit(1);
 			e.printStackTrace();
 
@@ -167,7 +174,9 @@ public class setProjectInfo {
 			
 			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {
 				pvalues.setSuccess(0);
-				System.out.println("Failed : HTTP Error code : " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
 				System.exit(1);	
 			}
 			
@@ -246,13 +255,15 @@ public class setProjectInfo {
 			
 			if (httpClientResponse.getStatusLine().getStatusCode() != 200) {
 				pvalues.setSuccess(0);
-				System.out.println("Failed : HTTP Error code : " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
+				System.out.println("FAILED: HTTP Error code: " + httpClientResponse.getStatusLine().getStatusCode());
+				System.out.println();
 				System.exit(1);	
 			}
 
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
-			String result = br.readLine();
+			String result = br.readLine();			
 		
 			JSONParser jsonParser = new JSONParser();
 	        JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());
@@ -265,7 +276,9 @@ public class setProjectInfo {
 			
 		} catch (Exception e) {
 			pvalues.setSuccess(0);
-			System.exit(1);
+			System.out.println();
+			System.out.println("ERROR: Please, check creating scan");
+			System.out.println();
 			e.printStackTrace();
 		}		
 	}
