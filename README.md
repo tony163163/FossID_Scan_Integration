@@ -85,11 +85,11 @@ Option (Optional)
   + Need to change 'webapp_scan_path_enable=1' to use this option in /fossid/etc/fossid.conf file  
   (NOTE: Please, do not use `--targetpath` with `Git Config` and `Upload Target File`)
 --dependencyscanrun: Set 0 or 1 to trigger dependency scan after source code scan
-			         (default: 0)
+			           (default: 0)
 --ignorevalue: Set ignore values. This value is separated by commas and the order of this values is matched with the order of ignoretypes value  
 --ignoretype: Set ignore types. This value is separated by commas and the order of this values is matched with the order of ignorevalue value  
 --interval: Set interval time to check status running source code and dependency scan  
-			(default: 10 seconds)
+	         (default: 10 seconds)
 
 Git Config (Optional)
 (NOTE: Please, do not use `Git Config` with `--targetpath` and `Upload Target File`)
@@ -97,12 +97,12 @@ Git Config (Optional)
 --gitrepourl: Set git repo url 
 --gitbranch: Set git repo branch
 
-Upload Target File (Optional)
+Upload Local Target File (Optional)
 (NOTE: Please, do not use `Upload Target File` with `--targetpath` and `Git Config`)
 --filepath: full file path with file name to be analyzed. The souce code must be archived before starting this tool
 --filename: compressed file name
 --decompresstime: Set the seconds to decompress the compressed file
-                  (default: 30)
+                  (default: 30 seconds)
 
 Scan Option (Optional)
 --limit: Limit on number of FOSSID results
@@ -126,6 +126,6 @@ Scan Option (Optional)
                   (0 default,1)	
 --deltaonly: Only newly added files or modified files will be scanned
              (0,1 default)	
-(not available)  --fullfileonly: Get only full file matches as result
+(not available) --fullfileonly: Get only full file matches as result
                                  (0,1 default)
 ```

@@ -11,9 +11,10 @@ public class printInfo {
 		System.out.println();
 		System.out.println("e.g:");
 		System.out.println("$ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username unsername --apikey a22d2s2s23 "
-				+ "--projectname testProject --scanname testScan --prsccode 0000 --targetpath /path/to/scan --dependencyScanRun 0 "
+				+ "--projectname testProject --scanname testScan --prscid 0000 --targetpath /path/to/scan --dependencyScanRun 0 "
 				+ "--gitrepourl https://github.com/twbs/bootstrap.git --gitbranch master --sourcepath /fossid/uploads/files/scans "
-				+ "--ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip --decompresstime 30");
+				+ "--ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip "
+				+ "--decompresstime 30 --excludepath /exclude/path1/*,/exclude/path2/*,*.txt");
 		System.out.println();
 		System.out.println();
 		System.out.println("Arguments");
@@ -39,19 +40,20 @@ public class printInfo {
 		System.out.println("--ignorevalue: Set ignore values. This value is separated by commas and the order of this values is matched with the order of ignoretype value");
 		System.out.println("--ignoretype: Set ignore types. This value is separated by commas and the order of this values is matched with the order of ignorevalue value");		
 		System.out.println("--interval: Set the seconds for intervals displaying the scan log");
-		System.out.println("            (default: 10)");		
+		System.out.println("            (default: 10 seconds)");		
 		System.out.println();
 		System.out.println("Git Config (Optional)");
 		System.out.println("(NOTE: Please, do not use `Git Config` with `--targetpath` and `Upload Target File`)");
+		System.out.println("(NOTE: Applying `--gitrepourl` and `--gitbranch` can be applied when creating a new scan)");
 		System.out.println("--gitrepourl: Set git repo url");
 		System.out.println("--gitbranch: Set git repo branch");
 		System.out.println();
-		System.out.println("Upload Target File (Optional)");
+		System.out.println("Upload Local Target File (Optional)");
 		System.out.println("(NOTE: Please, do not use `Upload Target File` with `--targetpath` and `Git Config`)");
 		System.out.println("--filepath: full file path with file name to be analyzed. The souce code must be archived before starting this tool");
 		System.out.println("--filename: compressed file name");
 		System.out.println("--decompresstime: Set the seconds to decompress the compressed file");
-		System.out.println("			      (default: 30)");
+		System.out.println("			      (default: 30 seconds)");
 		System.out.println();
 		System.out.println("Scan Option (Optional)");		
 		System.out.println("--limit: Limit on number of FOSSID results");
@@ -76,7 +78,7 @@ public class printInfo {
 		System.out.println("--deltaonly: Only newly added files or modified files will be scanned");
 		System.out.println("             (0,1 default)");
 		System.out.println("(not available)  --fullfileonly:	Get only full file matches as result");
-		System.out.println("                (0,1 default)");
+		System.out.println("                (0,1 default)");		
 	}
 	
 	public static void startFOSSID() {		

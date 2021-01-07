@@ -78,7 +78,7 @@ public class setProjectInfo {
                 for(int i=0; i < dataArray.size(); i++) {
                      JSONObject tempObj = (JSONObject) dataArray.get(i);
                         
-                     if(tempObj.get("project_code").equals(pvalues.getProjectName()+"_"+code)) {
+                     if(tempObj.get("project_code").equals(pvalues.getProjectName() + "_" + code)) {
                        	pvalues.setProjectCode(tempObj.get("project_code").toString());                	
                       	System.out.println("The projectName: \"" + pvalues.getProjectName() + "\" / projectCode: \"" + pvalues.getProjectCode() + "\" is exist");                	
                        	checkStatus = "t";
