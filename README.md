@@ -63,7 +63,7 @@ Usage
 $ java -jar class [args....]
 
 e.g)
-$ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username unsername --apikey a22d2s2s23 --projectname testProject --scanname testScan --prscid 0000 --targetpath /path/to/scan --dependencyScanRun 0 --gitrepourl https://github.com/twbs/bootstrap.git --gitbranch master --sourcepath /fossid/uploads/files/scans --ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip --decompresstime 30 --excludepath /exclude/path1/*,/exclude/path2/*,*.txt
+$ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username unsername --apikey a22d2s2s23 --projectname testProject --projectcode 0000 --scanname testScan --scancode 0000 --targetpath /path/to/scan --dependencyscanrun 0 --gitrepourl https://github.com/twbs/bootstrap.git --gitbranch master --sourcepath /fossid/uploads/files/scans --ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip --decompresstime 30 --excludepath /exclude/path1/*,/exclude/path2/*,*.txt
 ```
 
 ### Arguments
@@ -75,10 +75,11 @@ Server Information
 --username: username
 --apikey: apikey
 
-Project Information  
---projectname: Project Name  
+Project/Scan Information  
+--projectname: Project Name
+--projectcode: Project Code
 --scanname: Scan Name
---prsccode: Project / Scan Code
+--scancode: Scan Code
 
 Option (Optional)  
 --targetpath: Full path including source code to be analyzed in FossID server  

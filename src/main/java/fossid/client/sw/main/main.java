@@ -60,8 +60,8 @@ public class main {
 			
 			ArrayList<String> param = new ArrayList<String>(Arrays.asList(args));
 						
-			if(args.length < 12 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
-					!param.contains("--scanname") || !param.contains("--prsccode")){
+			if(args.length < 14 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
+					!param.contains("--scanname") || !param.contains("--projectcode") || !param.contains("--scancode")){
 				System.out.println();
 				System.out.println();
 				System.err.println("Please, check your parameters");
@@ -80,7 +80,8 @@ public class main {
 			String apikey = "";
 			String projectName = "";
 			String scanName = "";
-			String prscCode = "";
+			String projectCode = "";
+			String scanCode = "";
 			String targetpath = "";
 			String dependencyScanRun = "0";
 			String gitRepoUrl = "";
@@ -132,8 +133,12 @@ public class main {
 					scanName = args[i+1];
 				}
 				
-				if(args[i].equals("--prsccode")) {
-					prscCode = args[i+1]; 
+				if(args[i].equals("--projectcode")) {
+					projectCode = args[i+1]; 
+				}
+				
+				if(args[i].equals("--scancode")) {
+					scanCode = args[i+1]; 
 				}
 				
 				if(args[i].equals("--targetpath")) {
@@ -234,7 +239,7 @@ public class main {
 			}
 			
 			loginInfo.setLogininfo(protocol, address, userName, apikey);		
-			projectInfo.setInfo(projectName, scanName, prscCode, gitRepoUrl, gitBranch);			
+			projectInfo.setInfo(projectName, scanName, projectCode, scanCode, gitRepoUrl, gitBranch);			
 			printInfo.printinfo();
 			
 			if(!gitRepoUrl.equals("")) {

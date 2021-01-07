@@ -55,7 +55,7 @@ public class downloadContentfromGit {
 					new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
 			String result = br.readLine();
 			
-			System.out.println(result.toString());
+			//System.out.println(result.toString());
 	        
 			System.out.println("Start download source code from Git");
 			System.out.println("Git URL: " + pvalues.getGitUrl() + "  /  Branch: " + pvalues.getGitBranch());			
