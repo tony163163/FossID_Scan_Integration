@@ -60,8 +60,8 @@ public class main {
 			
 			ArrayList<String> param = new ArrayList<String>(Arrays.asList(args));
 						
-			if(args.length < 14 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
-					!param.contains("--scanname") || !param.contains("--projectcode") || !param.contains("--scancode")){
+			if(args.length < 10 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
+					!param.contains("--scanname")){
 				System.out.println();
 				System.out.println();
 				System.err.println("Please, check your parameters");

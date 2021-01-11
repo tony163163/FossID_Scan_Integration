@@ -197,8 +197,7 @@ public class runScan {
 						
 		String finished = "0";
 		//1000 = 1 second
-		int intervals = Integer.parseInt(interval) * 1000;
-	   
+		int intervals = Integer.parseInt(interval) * 1000;	   
 		
 		try {
 			int i = 1;
@@ -231,8 +230,8 @@ public class runScan {
 			    JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());            
 			    JSONObject jsonObj2 = (JSONObject) jsonObj1.get("data");
 			       		        
-			    if(jsonObj2.get("finished") != null) {
-			        finished = jsonObj2.get("finished").toString();		        	
+			    if(jsonObj2.get("is_finished").toString().equals("1")) {
+			        finished = jsonObj2.get("is_finished").toString();		        	
 			    }		       
 			        
 			    System.out.println(i + ". "  + jsonObj2.get("comment") + " / " + jsonObj2.get("percentage_done"));	        

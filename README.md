@@ -77,9 +77,9 @@ Server Information
 
 Project/Scan Information  
 --projectname: Project Name
---projectcode: Project Code
+(Optional) --projectcode: Project Code
 --scanname: Scan Name
---scancode: Scan Code
+(Optional) --scancode: Scan Code
 
 Option (Optional)  
 --targetpath: Full path including source code to be analyzed in FossID server  

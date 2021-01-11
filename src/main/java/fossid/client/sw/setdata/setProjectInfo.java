@@ -29,6 +29,7 @@ public class setProjectInfo {
 		setProjectCode(projectCode);	
 		checkScanCode(scanCode, gitUrl, gitBranch);
 		
+			
 	}
 	
 	private void setProjectCode(String projectCode) {
@@ -44,7 +45,15 @@ public class setProjectInfo {
 		rootObject.put("data", dataObject);		
 		
 		HttpPost httpPost = new HttpPost(lvalues.getServerApiUri());
-		HttpClient httpClient = HttpClientBuilder.create().build();				
+		HttpClient httpClient = HttpClientBuilder.create().build();			
+		
+		String project_Code = "";
+		
+		if(projectCode.equals("")) {
+        	project_Code = pvalues.getProjectName();
+        } else {            	
+        	project_Code = pvalues.getProjectName() + projectCode;
+        }
 		
 		try {
 
@@ -80,7 +89,7 @@ public class setProjectInfo {
                 for(int i=0; i < dataArray.size(); i++) {
                      JSONObject tempObj = (JSONObject) dataArray.get(i);
                         
-                     if(tempObj.get("project_code").equals(pvalues.getProjectName() + "_" + projectCode)) {
+                     if(tempObj.get("project_code").equals(project_Code)) {
                        	pvalues.setProjectCode(tempObj.get("project_code").toString());                	
                       	System.out.println("The projectName: \"" + pvalues.getProjectName() + "\" / projectCode: \"" + pvalues.getProjectCode() + "\" is exist");                	
                        	checkStatus = "t";
@@ -90,7 +99,7 @@ public class setProjectInfo {
             
             // if there is no projectName 
             if(checkStatus.equals("f")) {            	
-            	createProject(projectCode);            	
+            	createProject(project_Code);            	
             }
             
 		} catch (Exception e) {
@@ -102,10 +111,11 @@ public class setProjectInfo {
 	
 	// create Project if there is no projectName
 	private void createProject(String projectCode) {
+		
 		JSONObject dataObject = new JSONObject();		
 		dataObject.put("username", lvalues.getUsername());
         dataObject.put("key", lvalues.getApikey());
-        dataObject.put("project_code", pvalues.getProjectName() + "_" + projectCode);
+        dataObject.put("project_code", projectCode);
         dataObject.put("project_name", pvalues.getProjectName());
 
         JSONObject rootObject = new JSONObject();
@@ -133,9 +143,9 @@ public class setProjectInfo {
 			}					
 			
             //set projectcode
-            pvalues.setProjectCode(pvalues.getProjectName() + "_" + projectCode);         
-            
-            System.out.println("Create New Project - ProjectName / ProjectId: " + pvalues.getProjectName() + " / " + pvalues.getProjectCode());
+            pvalues.setProjectCode(projectCode);
+    		            
+            System.out.println("Create New Project - ProjectName / ProjectCode: " + pvalues.getProjectName() + " / " + pvalues.getProjectCode());
 			
 		} catch (Exception e) {
 			pvalues.setSuccess(0);
@@ -162,6 +172,14 @@ public class setProjectInfo {
 		
 		HttpPost httpPost = new HttpPost(lvalues.getServerApiUri());
 		HttpClient httpClient = HttpClientBuilder.create().build();
+		
+		String scan_Code = "";
+		
+		 if(scanCode.equals("")) {
+			 scan_Code = pvalues.getScanName();
+         } else {            	
+        	 scan_Code = pvalues.getScanName() + scanCode;
+         }
 				
 		try {
 
@@ -197,9 +215,8 @@ public class setProjectInfo {
             	String key = (String) iter.next();
             	// get values from key
             	JSONObject tempObj = (JSONObject) jsonObj2.get(key);            	
-
-            	String tempCode = pvalues.getScanName() + "_" + scanCode;  
-            	if(tempCode.equals(tempObj.get("code").toString())) {
+            	  
+            	if(scan_Code.equals(tempObj.get("code").toString())) {
             		pvalues.setScanCode(tempObj.get("code").toString());
             		pvalues.setScanId(tempObj.get("id").toString());            		
             		System.out.println("The scanName: \"" + pvalues.getScanName() + "\" / scanCode: \"" + pvalues.getScanCode() + "\" is exist");            		
@@ -208,7 +225,7 @@ public class setProjectInfo {
             }
             
             if(checkStatus.equals("f")) {
-            	creatScan(scanCode, gitUrl, gitBranch);
+            	creatScan(scan_Code, gitUrl, gitBranch);
             } else if(!gitUrl.equals("") && checkStatus.equals("t")) {            	
             	System.out.println();
             	System.out.println("WARN: You applied to download source code from git. Downloading source code from git may not be triggered because the scan already exists");
@@ -230,7 +247,7 @@ public class setProjectInfo {
 		JSONObject dataObject = new JSONObject();		
 		dataObject.put("username", lvalues.getUsername());
 	    dataObject.put("key", lvalues.getApikey());
-	    dataObject.put("scan_code", pvalues.getScanName() + "_" + scanCode);
+	    dataObject.put("scan_code", scanCode);
 	    dataObject.put("scan_name", pvalues.getScanName());
         if(!gitUrl.equals("")) {
         	dataObject.put("git_repo_url", gitUrl);
@@ -269,7 +286,7 @@ public class setProjectInfo {
 	        JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());
 	        JSONObject jsonObj2 = (JSONObject) jsonObj1.get("data");
 			
-			pvalues.setScanCode(pvalues.getScanName() + "_" + scanCode);
+			pvalues.setScanCode(scanCode);
 			pvalues.setScanId(jsonObj2.get("scan_id").toString());
 						
 			System.out.println("Create New Scan - ScanName / ScanCode: " + pvalues.getScanName() + " / " + pvalues.getScanCode());

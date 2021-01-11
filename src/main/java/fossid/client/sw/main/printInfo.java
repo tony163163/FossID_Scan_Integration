@@ -10,7 +10,7 @@ public class printInfo {
 		System.out.println("$ java -jar class [args....]");
 		System.out.println();
 		System.out.println("e.g:");
-		System.out.println("$ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username unsername --apikey a22d2s2s23 "
+		System.out.println("$ java -jar fossid_scan_integration.jar --protocol http --address fossid.co.kr/webapp --username username --apikey a22d2s2s23 "
 				+ "--projectname testProject --projectcode 0000 --scanname testScan --scancode 0000 --targetpath /path/to/scan --dependencyscanrun 0 "
 				+ "--gitrepourl https://github.com/twbs/bootstrap.git --gitbranch master --sourcepath /fossid/uploads/files/scans "
 				+ "--ignorevalue licenses,lib --ignoretype directory,directory --interval 30 --filepath /path/to/scan --filename filename.zip --decompresstime 30 "
@@ -28,9 +28,9 @@ public class printInfo {
 		System.out.println();
 		System.out.println("Project/Scan Information");
 		System.out.println("--projectname: Project Name");
-		System.out.println("--projectsccode: Project Code");
+		System.out.println("(Optional) --projectcode: Project Code");
 		System.out.println("--scanname: Scan Name");
-		System.out.println("--scancode: Scan Code");
+		System.out.println("(Optional) --scancode: Scan Code");
 		System.out.println();
 		System.out.println("Option (Optional)");
 		System.out.println("--targetpath: Full path including source code to be analyzed in FossID server");
