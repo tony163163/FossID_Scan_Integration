@@ -3,10 +3,10 @@ package fossid.client.sw.main;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
-import fossid.client.sw.main.printInfo;
+import fossid.client.sw.scan.downloadContentfromGit;
+import fossid.client.sw.scan.runDependencyScan;
+import fossid.client.sw.scan.runScan;
+import fossid.client.sw.scan.setIgnoreRules;
 import fossid.client.sw.setdata.setLoginInfo;
 import fossid.client.sw.setdata.setProjectInfo;
 import fossid.client.sw.setdata.updateScanInfo;
@@ -14,11 +14,7 @@ import fossid.client.sw.uploading.compressFiles;
 import fossid.client.sw.uploading.deleteCompressedFile;
 import fossid.client.sw.uploading.osValidator;
 import fossid.client.sw.uploading.uploadFiles;
-import fossid.client.sw.values.projectValues;
-import fossid.client.sw.scan.runScan;
-import fossid.client.sw.scan.runDependencyScan;
-import fossid.client.sw.scan.setIgnoreRules;
-import fossid.client.sw.scan.downloadContentfromGit;;
+import fossid.client.sw.values.projectValues;;
 
 public class main {
 	
@@ -52,14 +48,15 @@ public class main {
 	private static void runwithArgu(String[] args){
 
 		try {		
-
+						
 			if(args.length == 0 || args[0].equals("-h") || args[0].equals("--h") || args[0].equals("--help")) {
 				printInfo.usage();
 				System.exit(1);
-			}
+			}			
 			
 			ArrayList<String> param = new ArrayList<String>(Arrays.asList(args));
-						
+			
+		
 			if(args.length < 10 || !param.contains("--address") || !param.contains("--username") || !param.contains("--apikey") || !param.contains("--projectname") ||
 					!param.contains("--scanname")){
 				System.out.println();
@@ -73,13 +70,15 @@ public class main {
 			
 			System.out.println("Start FossID Scan Integration");			
 			printInfo.startFOSSID();
-			
+	
 			String protocol = "http";
 			String address = "";
 			String userName = "";
 			String apikey = "";
 			String projectName = "";
 			String scanName = "";
+	
+			
 			String projectCode = "";
 			String scanCode = "";
 			String targetpath = "";
@@ -102,7 +101,7 @@ public class main {
 			String specificcode = "";
 			String autoiddetectdeclare = "";
 			String autoiddetectcopyright = "";
-			String autoiddetectcomponent = "";
+			String autoidresolvependingids = "";
 			String scanfailedonly = "";
 			String deltaonly = "";
 			String fullfileonly = "";
@@ -203,8 +202,8 @@ public class main {
 					autoiddetectcopyright = args[i+1];
 				}
 				
-				if(args[i].equals("--autoiddetectcomponent")) {
-					autoiddetectcomponent = args[i+1];
+				if(args[i].equals("--autoidresolvependingids")) {
+					autoidresolvependingids = args[i+1];
 				}
 				
 				if(args[i].equals("--scanfailedonly")) {
@@ -257,7 +256,7 @@ public class main {
 			updateScaninfo.updateScaninfo(targetpath);
 			ignoreRules.setignoreRules(ignoreValue, ignoreType);			
 		    runscan.runscan(interval, limit, sensitivity, replaceid, reuseid, idreusetype, specificcode, autoiddetectdeclare, 
-		    		autoiddetectcopyright,  autoiddetectcomponent, scanfailedonly, deltaonly, fullfileonly);		    
+		    		autoiddetectcopyright,  autoidresolvependingids, scanfailedonly, deltaonly, fullfileonly);		    
 		    if(dependencyScanRun.equals("1")){		    	
 		    	runDependencyScan.runDependencyScan(interval);
 		    }						

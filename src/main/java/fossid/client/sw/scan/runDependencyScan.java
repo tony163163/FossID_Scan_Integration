@@ -83,7 +83,7 @@ public class runDependencyScan {
         rootObject.put("action", "check_status");
 		rootObject.put("data", dataObject);		
 						
-		String finished = "0";
+		String finished = "false";
 		//1000 = 1 second
 		int intervals = Integer.parseInt(interval) * 1000;
 		
@@ -91,7 +91,7 @@ public class runDependencyScan {
 			int i = 1;
 			//int loopCount = 1;
 			
-			while(finished.equals("0")) {
+			while(finished.equals("false")) {
 				HttpPost httpPost = new HttpPost(lvalues.getServerApiUri());
 				CloseableHttpClient httpClient = HttpClientBuilder.create().build();		
 					
@@ -115,24 +115,33 @@ public class runDependencyScan {
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
 				String result = br.readLine();
-					
+				
 				JSONParser jsonParser = new JSONParser();
 			    JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());            
 			    JSONObject jsonObj2 = (JSONObject) jsonObj1.get("data");
 			       		        
-			    if(jsonObj2.get("finished") != null && !jsonObj2.get("is_finished").equals(false)) {
+			    if(jsonObj2.get("finished") != null && !jsonObj2.get("is_finished").toString().equals("false")) {
 			        finished = jsonObj2.get("finished").toString();		        	
 			    }		       
-			        
-			    if(!jsonObj2.get("comment").equals("Interrupted") && !jsonObj2.get("comment").equals("")) {
-			    	System.out.println(i + ". "  + jsonObj2.get("comment"));	        
-				    i++;
-			    }			    
+			       
+			    /**
+			    if(jsonObj2.get("comment") != null) {
+			    	System.out.println(jsonObj2.get("comment"));
+			    }
+			    **/
+			    
+			    if(i==1) {
+			    	System.out.print("Running Dependency Analysis");
+			    	i++;
+			    }
+			    System.out.print(".");
 			        
 			    Thread.sleep(intervals);	
 			    
 			    httpClient.close();
 		    }
+			
+			System.out.println();
 			
 		} catch (Exception e) {			
 			e.printStackTrace();

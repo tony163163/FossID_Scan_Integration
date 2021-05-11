@@ -121,8 +121,8 @@ Scan Option (Optional)
                        (0 default,1)
 --autoiddetectcopyright: Automatically detect copyright statements inside files  
                          (0 default,1)
-(not available) --autoiddetectcomponent: Automatically detect components based on client results
-                                         (0 default,1)
+--autoidresolvependingids: Automatically resolve pending identifications
+                           (0 default,1)
 --scanfailedonly: If true, this will only scan files that have failed in the previous scan
                   (0 default,1)	
 --deltaonly: Only newly added files or modified files will be scanned

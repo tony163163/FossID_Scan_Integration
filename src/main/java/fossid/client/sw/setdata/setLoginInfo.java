@@ -31,10 +31,10 @@ public class setLoginInfo {
 			
 			if(temp.equals("/")) {
 				lvalues.setServerApiUri("http://" + address + "api.php");
-				lvalues.setServerUploadUri("http://" + address + "api_upload_endpoint.php");
+				lvalues.setServerUploadUri("http://" + address + "api.php");
 			} else {
 				lvalues.setServerApiUri("http://" + address + "/api.php");
-				lvalues.setServerUploadUri("http://" + address + "/api_upload_endpoint.php");
+				lvalues.setServerUploadUri("http://" + address + "/api.php");
 			}				
 		} else if(protocol.equals("https")) {
 			lvalues.setServerUri("https://" + address);
@@ -45,10 +45,10 @@ public class setLoginInfo {
 			
 			if(temp.equals("/")) {
 				lvalues.setServerApiUri("https://" + address + "api.php");
-				lvalues.setServerUploadUri("https://" + address + "api_upload_endpoint.php");
+				lvalues.setServerUploadUri("https://" + address + "api.php");
 			} else {
 				lvalues.setServerApiUri("https://" + address + "/api.php");
-				lvalues.setServerUploadUri("https://" + address + "/api_upload_endpoint.php");
+				lvalues.setServerUploadUri("https://" + address + "/api.php");
 			}
 		}
 		

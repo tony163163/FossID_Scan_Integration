@@ -1,10 +1,7 @@
 package fossid.client.sw.scan;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Properties;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,7 +21,7 @@ public class runScan {
 	projectValues pvalues = projectValues.getInstance(); 
 
 	public void runscan(String interval, String limit, String sensitivity, String replaceid, String reuseid, String idreusetype, String specificcode, 
-			String autoiddetectdeclare, String autoiddetectcopyright, String autoiddetectcomponent, String  scanfailedonly, String deltaonly, String fullfileonly) {
+			String autoiddetectdeclare, String autoiddetectcopyright, String autoidresolvependingids, String  scanfailedonly, String deltaonly, String fullfileonly) {
 
 		JSONObject dataObject = new JSONObject();
         dataObject.put("username", lvalues.getUsername());
@@ -92,15 +89,16 @@ public class runScan {
         	}        	
         }
         
-        if(!autoiddetectcomponent.equals("")){
-        	if(autoiddetectcomponent.equals("1")) {        		
-        		dataObject.put("auto_identification_detect_component", autoiddetectcomponent);
-            	pvalues.setScanOption("auto_identification_detect_component: " + "true");
-        	} else if(autoiddetectcomponent.equals("0")) {        		
-        		dataObject.put("auto_identification_detect_component", autoiddetectcomponent);
-            	pvalues.setScanOption("auto_identification_detect_component: " + "false");
+         
+        if(!autoidresolvependingids.equals("")){
+        	if(autoidresolvependingids.equals("1")) {        		
+        		dataObject.put("auto_identification_resolve_pending_ids", autoidresolvependingids);
+            	pvalues.setScanOption("auto_identification_resolve_pending_ids: " + "true");
+        	} else if(autoidresolvependingids.equals("0")) {        		
+        		dataObject.put("auto_identification_resolve_pending_ids", autoidresolvependingids);
+            	pvalues.setScanOption("auto_identification_resolve_pending_ids: " + "false");
         	}
-        }
+        }       
         
         if(!scanfailedonly.equals("")){
         	if(scanfailedonly.equals("1")) {        		
@@ -195,7 +193,7 @@ public class runScan {
         rootObject.put("action", "check_status");
 		rootObject.put("data", dataObject);		
 						
-		String finished = "0";
+		String finished = "false";
 		//1000 = 1 second
 		int intervals = Integer.parseInt(interval) * 1000;	   
 		
@@ -203,7 +201,7 @@ public class runScan {
 			int i = 1;
 			//int loopCount = 1;
 			
-			while(finished.equals("0")) {
+			while(finished.equals("false")) {
 				HttpPost httpPost = new HttpPost(lvalues.getServerApiUri());
 				CloseableHttpClient httpClient = HttpClientBuilder.create().build();		
 					
@@ -224,17 +222,17 @@ public class runScan {
 					
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
-				String result = br.readLine();
+				String result = br.readLine();				
 					
 				JSONParser jsonParser = new JSONParser();
 			    JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());            
 			    JSONObject jsonObj2 = (JSONObject) jsonObj1.get("data");
 			       		        
-			    if(jsonObj2.get("is_finished").toString().equals("1")) {
+			    if(jsonObj2.get("is_finished").toString().equals("true")) {
 			        finished = jsonObj2.get("is_finished").toString();		        	
 			    }		       
 			        
-			    System.out.println(i + ". "  + jsonObj2.get("comment") + " / " + jsonObj2.get("percentage_done"));	        
+			    System.out.println(i + ". "  + "file: "+ jsonObj2.get("current_filename") + " / percentage: " + jsonObj2.get("percentage_done") + "%");	        
 			    i++;
 			        
 			    Thread.sleep(intervals);	

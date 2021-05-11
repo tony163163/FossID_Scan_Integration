@@ -29,11 +29,11 @@ public class setProjectInfo {
 		setProjectCode(projectCode);	
 		checkScanCode(scanCode, gitUrl, gitBranch);
 		
-			
+		
 	}
 	
 	private void setProjectCode(String projectCode) {
-		
+
 		// create json to call FOSSID project/list_projects api 		
 		JSONObject dataObject = new JSONObject();
         dataObject.put("username", lvalues.getUsername());
@@ -80,30 +80,42 @@ public class setProjectInfo {
             JSONObject jsonObj = (JSONObject) jsonParser.parse(result.toString());
             
             String checkStatus = "f";
-            if(jsonObj.get("message").equals("Database query returned no records.")) {
+            
+            Object object = jsonObj.get("data");
+            if(object instanceof JSONArray){    
+                // JSONArray
             	
-            } else {
             	JSONArray dataArray = (JSONArray) jsonObj.get("data");
-                
-                //set projectCode
+            	
+                //set projectCode            
                 for(int i=0; i < dataArray.size(); i++) {
-                     JSONObject tempObj = (JSONObject) dataArray.get(i);
-                        
-                     if(tempObj.get("project_code").equals(project_Code)) {
+                    JSONObject tempObj = (JSONObject) dataArray.get(i);
+                         
+                    if(tempObj.get("project_code").equals(project_Code)) {
                        	pvalues.setProjectCode(tempObj.get("project_code").toString());                	
-                      	System.out.println("The projectName: \"" + pvalues.getProjectName() + "\" / projectCode: \"" + pvalues.getProjectCode() + "\" is exist");                	
+                       	System.out.println("The projectName: \"" + pvalues.getProjectName() + "\" / projectCode: \"" + pvalues.getProjectCode() + "\" is exist");                	
                        	checkStatus = "t";
                     } 
-                }            	
-            }           
-            
-            // if there is no projectName 
-            if(checkStatus.equals("f")) {            	
-            	createProject(project_Code);            	
+                }
+                
+                // if there is no projectName in the list
+                if(checkStatus.equals("f")) {            	
+                	createProject(project_Code);            	
+                }
+            }else{
+                // JSONObject            	
+            	// if there no project assigned to the user
+            	createProject(project_Code);
+            	checkStatus = "t";
             }
             
+          
+            
 		} catch (Exception e) {
-			pvalues.setSuccess(0);			
+			pvalues.setSuccess(0);
+			System.out.println();
+			System.out.println("FAILED: Please, check assigning project code");
+			System.out.println();
 			System.exit(1);
 			e.printStackTrace();
 		}		
@@ -202,6 +214,8 @@ public class setProjectInfo {
 					new InputStreamReader(httpClientResponse.getEntity().getContent(), "utf-8"));
 			String result = br.readLine();
 			
+			//System.out.println(result.toString());
+			
 			JSONParser jsonParser = new JSONParser();
 	        JSONObject jsonObj1 = (JSONObject) jsonParser.parse(result.toString());
 			JSONObject jsonObj2 = (JSONObject) jsonObj1.get("data");  
@@ -233,11 +247,13 @@ public class setProjectInfo {
             	System.out.println();
             }
             
-		} catch (Exception e) {
+		} catch (Exception e) {			
 			pvalues.setSuccess(0);
+			System.out.println();
+			System.out.println("FAILED: Please, check assigning scan code");
+			System.out.println();
 			System.exit(1);
 			e.printStackTrace();
-
 		}	
 	}
 	
